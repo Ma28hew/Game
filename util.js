@@ -14,6 +14,7 @@ let rightMove = false;
 let downMove = false;
 let upMove = false;
 let speed = 5.5;
+let playerColor = "blue"
 requestAnimationFrame(draw);
 
 function draw() {
@@ -47,7 +48,7 @@ function draw() {
     }
     if (x < 0) {
         x = 0;
-    } else if (cnv.width <= x + 50) {
+    } else if (cnv.width < x + 50) {
         x = cnv.width - 50;
     }
 
@@ -82,16 +83,22 @@ function draw() {
 
     // DRAW MAZE7
     ctx.fillStyle = "red"
-    ctx.fillRect(880, 70, 70, 210);
+    ctx.fillRect(880, 70, 70, 160);
+
+    // DEATH
+
+    if (x < 500 && x + 50 > 200 && y < 70 && y + 50 > 0) {
+        playerColor = "green"
+    } else {
+        playerColor = "blue"
+    }
+
 
     // DRAW PLAYER
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = playerColor;
     ctx.fillRect(x, y, 50, 50);
 
-
-
-
-    // REQUEST ANIMATION FRAMEw
+    // REQUEST ANIMATIONa FRAMEw
     requestAnimationFrame(draw);
 }
 
