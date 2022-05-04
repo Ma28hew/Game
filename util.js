@@ -90,6 +90,18 @@ function draw() {
         ctx.fillStyle = "red"
         ctx.fillRect(1100, 850, -150, -150);
         fin = false;
+        fin3 = true;
+    }
+
+    if (fin3 && x < 150 && x + 50 > 0 && y < 850 && y + 50 > 700) {
+        ctx.fillStyle = "green"
+        ctx.fillRect(0, 0, 150, 150);
+        ctx.fillStyle = "red"
+        ctx.fillRect(0, 850, 150, -150);
+        ctx.fillStyle = "red"
+        ctx.fillRect(1100, 850, -150, -150);
+        fin = false;
+        fin2 = false;
     }
 
 
