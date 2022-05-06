@@ -4,11 +4,8 @@ let ctx = cnv.getContext("2d");
 cnv.width = 1100;
 cnv.height = 850;
 
-
-
-
-let x = 900;
-let y = 720;
+let x = 340;
+let y = 600;
 let leftMove = false;
 let rightMove = false;
 let downMove = false;
@@ -18,10 +15,23 @@ let playerColor = "yellow"
 let fin = false;
 let fin2 = false;
 let fin3 = false;
+let spikes = false;
+
+let num = 1;
+while (num <= 5000) {
+    console.log("Spikes");
+    num++;
+}
+
+if (num <= 5000) {
+    spikes = true;
+} else {
+    spikes = false
+}
+
 requestAnimationFrame(draw);
 
 function draw() {
-
 
     // UPDATE ELEMENTS ON CANVAS
 
@@ -51,15 +61,21 @@ function draw() {
         x = cnv.width - 50;
     }
 
-
-
-
-
-
     // DRAW CANVAS
     ctx.fillStyle = "white"
     ctx.fillRect(0, 0, cnv.width, cnv.height);
 
+    // Start 1
+    ctx.fillStyle = "red"
+    ctx.fillRect(0, 0, 150, 150);
+
+    // Start 2
+    ctx.fillStyle = "red"
+    ctx.fillRect(0, 850, 150, -150);
+
+    // Start 3
+    ctx.fillStyle = "green"
+    ctx.fillRect(1100, 850, -150, -150);
 
     // Fin
     if (x < 1100 && x + 50 > 950 && y < 850 && y + 50 > 700) {
@@ -72,17 +88,12 @@ function draw() {
         ctx.fillRect(1100, 850, -150, -150);
         ctx.fillStyle = "red"
         ctx.fillRect(0, 850, 150, -150);
-        fin2 = true;
-    } else {
-        ctx.fillStyle = "red"
-        ctx.fillRect(0, 850, 150, -150);
-        ctx.fillStyle = "red"
-        ctx.fillRect(0, 0, 150, 150);
-        ctx.fillStyle = "green"
-        ctx.fillRect(1100, 850, -150, -150);
     }
 
-    if (fin2 && x < 150 && x + 50 > 0 && y < 150 && y + 50 > 0) {
+    if (fin && x < 150 && x + 50 > 0 && y < 150 && y + 50 > 0) {
+        fin2 = true;
+    }
+    if (fin2) {
         ctx.fillStyle = "red"
         ctx.fillRect(0, 0, 150, 150);
         ctx.fillStyle = "green"
@@ -90,20 +101,16 @@ function draw() {
         ctx.fillStyle = "red"
         ctx.fillRect(1100, 850, -150, -150);
         fin = false;
+    }
+
+    if (fin2 && x < 150 && x + 50 > 0 && y < 850 && y + 50 > 700) {
         fin3 = true;
     }
 
-    if (fin3 && x < 150 && x + 50 > 0 && y < 850 && y + 50 > 700) {
-        ctx.fillStyle = "green"
-        ctx.fillRect(0, 0, 150, 150);
-        ctx.fillStyle = "red"
-        ctx.fillRect(0, 850, 150, -150);
-        ctx.fillStyle = "red"
-        ctx.fillRect(1100, 850, -150, -150);
-        fin = false;
-        fin2 = false;
+    if (fin3) {
+        cnv.width = 50;
+        cnv.height = 50;
     }
-
 
     // DRAW MAZE1
     ctx.fillStyle = "red"
@@ -201,12 +208,73 @@ function draw() {
     ctx.fillStyle = "blue"
     ctx.fillRect(1030, 600, -650, 70);
 
-    // DRAW QUICK SAND 1
+    // DRAW QUICK SAND 
     ctx.fillStyle = "#C2B280"
     ctx.fillRect(350, 300, 170, 150);
 
     ctx.fillStyle = "#B0A276"
     ctx.fillRect(430, 370, 10, 10);
+
+    // SPIKES
+    if (spikes) {
+        ctx.fillStyle = "grey"
+        ctx.fillRect(20, 620, 30, 30);
+
+        ctx.beginPath()
+        ctx.moveTo(20, 620);
+        ctx.lineTo(50, 650);
+        ctx.stroke();
+
+        ctx.beginPath()
+        ctx.moveTo(20, 650);
+        ctx.lineTo(50, 620);
+        ctx.stroke();
+
+        ctx.fillStyle = "grey"
+        ctx.fillRect(100, 620, 30, 30);
+
+        ctx.beginPath()
+        ctx.moveTo(100, 620);
+        ctx.lineTo(130, 650);
+        ctx.stroke();
+
+        ctx.beginPath()
+        ctx.moveTo(100, 650);
+        ctx.lineTo(130, 620);
+        ctx.stroke();
+
+        ctx.fillStyle = "grey"
+        ctx.fillRect(180, 620, 30, 30);
+
+        ctx.beginPath()
+        ctx.moveTo(180, 620);
+        ctx.lineTo(210, 650);
+        ctx.stroke();
+
+        ctx.beginPath()
+        ctx.moveTo(180, 650);
+        ctx.lineTo(210, 620);
+        ctx.stroke();
+
+        ctx.fillStyle = "grey"
+        ctx.fillRect(260, 620, 30, 30);
+
+        ctx.beginPath()
+        ctx.moveTo(260, 620);
+        ctx.lineTo(290, 650);
+        ctx.stroke();
+
+        ctx.beginPath()
+        ctx.moveTo(260, 650);
+        ctx.lineTo(290, 620);
+        ctx.stroke();
+    }
+
+
+    if (spikes && x < 290 && x + 50 > 0 && y < 670 && y + 50 > 600) {
+        x = 50;
+        y = 50;
+    }
 
     // DEATH
     if (x < 500 && x + 50 > 150 && y < 70 && y + 50 > 0) {
@@ -345,15 +413,9 @@ function draw() {
         fin2 = false;
     }
 
-
-
-
-
-
-
     // River
     if (x < 1030 && x + 50 > 380 && y < 670 && y + 50 > 600) {
-        x += speed;
+        x -= speed;
         leftMove = false;
         rightMove = false;
         downMove = false;
@@ -382,23 +444,6 @@ function draw() {
     } else {
         speed = 5.5;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // DRAW PLAYER
     ctx.fillStyle = playerColor;
