@@ -4,8 +4,8 @@ let ctx = cnv.getContext("2d");
 cnv.width = 1100;
 cnv.height = 850;
 
-let x = 340;
-let y = 600;
+let x = 50;
+let y = 50;
 let leftMove = false;
 let rightMove = false;
 let downMove = false;
@@ -16,19 +16,12 @@ let fin = false;
 let fin2 = false;
 let fin3 = false;
 let spikes = false;
-
-let num = 1;
-while (num <= 5000) {
-    console.log("Spikes");
-    num++;
-}
-
-if (num <= 5000) {
-    spikes = true;
-} else {
-    spikes = false
-}
-
+let spikes2 = false;
+let spikes3 = false;
+let t = 0;
+let j = 0;
+let l = 0;
+let qss = 0.5;
 requestAnimationFrame(draw);
 
 function draw() {
@@ -108,8 +101,10 @@ function draw() {
     }
 
     if (fin3) {
+        document.getElementById("YAY").style.display = "block";
         cnv.width = 50;
         cnv.height = 50;
+
     }
 
     // DRAW MAZE1
@@ -215,7 +210,23 @@ function draw() {
     ctx.fillStyle = "#B0A276"
     ctx.fillRect(430, 370, 10, 10);
 
-    // SPIKES
+
+
+
+
+    // SPIKES 1
+    if (t < 150) {
+        t++
+    } else {
+        t = 0
+    }
+
+    if (t > 95) {
+        spikes = true;
+    } else {
+        spikes = false;
+    }
+
     if (spikes) {
         ctx.fillStyle = "grey"
         ctx.fillRect(20, 620, 30, 30);
@@ -268,13 +279,133 @@ function draw() {
         ctx.moveTo(260, 650);
         ctx.lineTo(290, 620);
         ctx.stroke();
+
+        if (spikes && x < 290 && x + 50 > 0 && y < 670 && y + 50 > 600) {
+            x = 50;
+            y = 50;
+        }
     }
 
-
-    if (spikes && x < 290 && x + 50 > 0 && y < 670 && y + 50 > 600) {
-        x = 50;
-        y = 50;
+    // SPIKES 2
+    if (j < 120) {
+        j++
+    } else {
+        j = 0
     }
+
+    if (j > 90) {
+        spikes2 = true;
+    } else {
+        spikes2 = false;
+    }
+
+    if (spikes2) {
+        ctx.fillStyle = "grey"
+        ctx.fillRect(600, 20, 30, 30);
+
+        ctx.beginPath()
+        ctx.moveTo(600, 20);
+        ctx.lineTo(630, 50);
+        ctx.stroke();
+
+        ctx.beginPath()
+        ctx.moveTo(600, 50);
+        ctx.lineTo(630, 20);
+        ctx.stroke();
+
+        ctx.fillStyle = "grey"
+        ctx.fillRect(760, 20, 30, 30);
+
+        ctx.beginPath()
+        ctx.moveTo(760, 20);
+        ctx.lineTo(790, 50);
+        ctx.stroke();
+
+        ctx.beginPath()
+        ctx.moveTo(790, 20);
+        ctx.lineTo(760, 50);
+        ctx.stroke();
+
+        ctx.fillStyle = "grey"
+        ctx.fillRect(920, 20, 30, 30);
+
+        ctx.beginPath()
+        ctx.moveTo(920, 20);
+        ctx.lineTo(950, 50);
+        ctx.stroke();
+
+        ctx.beginPath()
+        ctx.moveTo(920, 50);
+        ctx.lineTo(950, 20);
+        ctx.stroke();
+
+        if (spikes2 && x < 630 && x + 50 > 600 && y < 50 && y + 50 > 20) {
+            x = 50;
+            y = 50;
+        }
+
+        if (spikes2 && x < 790 && x + 50 > 790 && y < 50 && y + 50 > 20) {
+            x = 50;
+            y = 50;
+        }
+
+        if (spikes2 && x < 950 && x + 50 > 920 && y < 50 && y + 50 > 20) {
+            x = 50;
+            y = 50;
+        }
+    }
+
+    // SPIKES 3
+    if (l < 120) {
+        l++
+    } else {
+        l = 0
+    }
+
+    if (l > 30 && l < 60) {
+        spikes3 = true;
+    } else {
+        spikes3 = false;
+    }
+
+    if (spikes3) {
+        ctx.fillStyle = "grey"
+        ctx.fillRect(680, 20, 30, 30);
+
+        ctx.beginPath()
+        ctx.moveTo(680, 20);
+        ctx.lineTo(710, 50);
+        ctx.stroke();
+
+        ctx.beginPath()
+        ctx.moveTo(680, 50);
+        ctx.lineTo(710, 20);
+        ctx.stroke();
+
+        ctx.fillStyle = "grey"
+        ctx.fillRect(840, 20, 30, 30);
+
+        ctx.beginPath()
+        ctx.moveTo(840, 20);
+        ctx.lineTo(870, 50);
+        ctx.stroke();
+
+        ctx.beginPath()
+        ctx.moveTo(870, 20);
+        ctx.lineTo(840, 50);
+        ctx.stroke();
+
+        if (spikes3 && x < 710 && x + 50 > 680 && y < 50 && y + 50 > 20) {
+            x = 50;
+            y = 50;
+        }
+
+        if (spikes3 && x < 870 && x + 50 > 840 && y < 50 && y + 50 > 20) {
+            x = 50;
+            y = 50;
+        }
+    }
+
 
     // DEATH
     if (x < 500 && x + 50 > 150 && y < 70 && y + 50 > 0) {
@@ -322,6 +453,7 @@ function draw() {
         x = 50;
         y = 50;
         fin = false;
+        fin2 = false;
     } else if (x < 790 && x + 50 > 700 && y < 330 && y + 50 > 230) {
         x = 50;
         y = 50;
@@ -424,23 +556,22 @@ function draw() {
 
     // Quick Sand
     if (x < 420 && x + 50 > 350 && y < 450 && y + 50 > 300) {
-        x++;
+        x += qss;
     }
-
     if (x < 520 && x + 50 > 450 && y < 450 && y + 50 > 300) {
-        x--;
+        x -= qss;
     }
 
     if (x < 450 && x + 50 > 420 && y < 360 && y + 50 > 300) {
-        y++;
+        y += qss;
     }
 
     if (x < 450 && x + 50 > 420 && y < 450 && y + 50 > 390) {
-        y--;
+        y -= qss;
     }
 
     if (x < 520 && x + 50 > 350 && y < 450 && y + 50 > 300) {
-        speed = 1.5;
+        speed = 0.9;
     } else {
         speed = 5.5;
     }
